@@ -78,10 +78,10 @@ nav ul li .nav{
     margin: 0;
 }
         
-.nav:hover:hover{
+.nav:hover{
     color: var(--cor_destaque);
-    text-decoration: underline;
-    font-size: 1.1em;
+    text-decoration: none;
+    transition-duration: 0.5s;
 }
 .nav-rapida{
     background-color: var(--cor_principal);
@@ -182,11 +182,15 @@ input:hover,:focus{
 }
 #button-login a{
     color: var(--cor_texto_padrao);
+    text-decoration: none;
 }
 #button-login:hover{
     width: 105px;
     height:42px ;
+    background-color: rgba(15, 204, 217, 0.839);
     font-size: 1.1em;
+    transition-duration: 0.3s;
+    box-shadow: 3px  3px rgba(0, 0, 0, 0.336);
 }
         
 #Botao-Entrar{
