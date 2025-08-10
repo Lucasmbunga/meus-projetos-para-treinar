@@ -44,7 +44,7 @@ a:hover{
     margin:30px 5px 0px 30px;           
 }
 
-div{
+header div{
     display: flex;
     flex: 1 1 47%;
     padding: 0; 
@@ -84,6 +84,7 @@ nav ul li .nav{
     transition-duration: 0.5s;
 }
 .nav-rapida{
+    height: 100px;
     background-color: var(--cor_principal);
     display:flex;
     flex: 1 1 100vw;
@@ -92,6 +93,8 @@ nav ul li .nav{
     align-items: center;
     border-radius: 10px;
     box-shadow: 2px 2px var(--cor_destaque);
+    text-align: center;
+
 }
 main{
     width: 100%;
@@ -107,6 +110,9 @@ main h2{
 }
 main h3{
     margin:  15px 30px;
+}
+main div{
+    display: flex;
 }
 main form p{
     margin: 15px 70px;
@@ -189,6 +195,7 @@ input:hover,:focus{
     height:42px ;
     background-color: rgba(15, 204, 217, 0.839);
     font-size: 1.1em;
+    font-weight: bold;
     transition-duration: 0.3s;
     box-shadow: 3px  3px rgba(0, 0, 0, 0.336);
 }
@@ -208,30 +215,42 @@ input:hover,:focus{
     margin: 10px 0px;
 }
 footer{
+    display: flex;
+    flex: 1 1 100vw;
     background-color: var(--cor_principal);
     color: var(--cor_texto);
     padding: 10px;
 }
+footer p{
+    line-height: 1.1em;
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+}
 
-#titulo-footer{
-    display: inline;
-    flex: 50 1 100vw;
+.div-footer{
+    flex: 1 1 100vw;
     margin: 10px;
+    text-align: left;
+}
+#contatos h2{
+    margin:5px 0px 0px 10px;
+}
 
+#titulo-footer h2{
+    margin: 5px;
 }
 .p-footer{
-    display: inline;
     flex: 1 1 100vw;
     margin: 10px;
 }
-#p-telefone{
-    display: inline-block;
-    flex: 50 1 100vw;
+.redes-sociais{
+    margin-bottom: -30px;
+    padding: 0px;
 }
-
-#criador{
-    display: block;
-    flex: 100 1 100vw;
+.redes-sociais img{
+    margin: 0px;
+    padding: 0px;
 }
         
         
