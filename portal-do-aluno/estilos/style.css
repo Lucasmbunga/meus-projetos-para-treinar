@@ -1,0 +1,155 @@
+@charset "UTF-8";
+
+:root{
+    --cor_principal:#9b0b2a;
+    --cor2:rgb(126, 20, 31);
+    --cor3:rgb(5, 84, 127);
+}
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: gray;
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    font-size: 0.8em;
+    
+}
+
+a{
+    color: inherit;
+    text-decoration: none; 
+    margin: 0px 5px;
+}
+#div-header{
+    background-color: var(--cor3);
+    padding: 5px;
+    align-items: center;
+}
+#div-header-direita{
+    display: flex;
+    flex: 5 1 100vw;
+    justify-content: flex-start;
+}
+#div-header-esquerda{
+    flex: 0 1 50vw;
+}
+#div-header-esquerda img{
+    width: 20px;
+}
+#div-header2{
+    background-color: var(--cor_principal);
+    padding: 15px;
+    align-items: center;
+}
+#div-header2 img{
+    width: 20px;
+}
+#div-header2 .li{
+    margin: 0px 5px;
+    background-color: white;
+    color: var(--cor_principal);
+    border-radius: 20px;
+    padding: 8px;
+    align-items: center;
+}
+#div-header2-imagens{
+    flex: 0 1 45vw;
+}
+#filho-dev-header2{
+    flex: 3 1 100vw;
+}
+#div-header, #div-header2, #div-nav{
+    display: flex;
+    color: white;
+}
+
+ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+}
+#div-nav{
+    text-align:right;
+}
+nav{
+    width: 100%;
+    background-color: var(--cor2);
+}
+nav li{
+    
+    border-left: 0.5px solid rgba(255, 255, 255, 0.279);
+    border-right: 0.5px solid rgba(255, 255, 255, 0.279);
+    padding: 15px;
+}
+#banner{
+    height: 400px;
+    background-image: url("../imagens/imagen-fundo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+body#login{
+    background-image: url("../imagens/foto-m.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#logo{
+    margin: auto;
+    margin-top: 19vh;
+    margin-bottom: 4vh;
+    display: block;
+}
+#div-conteiner{
+    width: 300px;
+    height: 300px;
+    background-color: var(--cor_principal);
+    color: white;
+    margin: auto;
+    padding: 30px 30px 15px 30px;
+    text-align: center;
+            
+}
+#div-conteiner h1{
+    font-size: 1.5em;
+}
+.div-login{
+    padding: 10px 0px;
+    background-color: white;
+    color:  rgb(104, 95, 97);
+    margin: 15px 0px;
+    border-radius: 5px;
+}
+#div-button{
+    padding: 0px;
+}
+.img{
+    width: 20px;
+    height: 100%;
+    background-color: rgb(104, 95, 97);
+    margin-bottom: -5px;
+}
+.input-login{
+    border-style: none;
+    padding: 10px 0px;
+}
+#button-acessar{
+    background-color: rgb(234, 0, 1);
+    width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    border-style: none;
+    color: white;
+    font-weight: bold;
+}
+#div-button:hover>#button-acessar{
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.354);
+    background-color: rgb(128, 128, 128);
+    cursor: pointer;
+}
+
+        
