@@ -1,0 +1,1553 @@
+
+  // ===================================== 
+  //
+  // JS - #mc-Swiper65935
+  //  
+  
+  (function($){
+  
+  
+  // ------------
+  // opcoes swiper
+  //
+  var swiperOpt = {
+  
+    // -- controle
+    
+      navigation: {
+        nextEl:'#mc-Swiper65935 .swiper-button-next',
+        prevEl:'#mc-Swiper65935 .swiper-button-prev',
+      },
+    
+    
+      pagination: {
+        el:'#mc-Swiper65935 .swiper-pagination',
+        type:'bullets',
+        clickable:true,
+        
+      },
+    
+    
+    
+        grabCursor:false,
+        simulateTouch:false,
+      
+    
+    
+  
+    // -- animacao
+    speed:400,
+    
+      autoplay: {
+        delay: 5000,
+      },
+    
+    
+      effect:'slide',
+    
+      direction:'horizontal',
+    
+  
+    // -- design
+    
+    
+    
+      spaceBetween:0,
+  
+    
+    
+      slidesPerView:1,
+      slidesPerGroup:1,
+      
+    
+      breakpoints: {
+        480:{
+          slidesPerView:1,
+          slidesPerGroup:1,
+          spaceBetween:0,
+        },
+        768:{
+          slidesPerView:1,
+          slidesPerGroup:1,
+          spaceBetween:0,
+        },
+        992:{
+          slidesPerView:1,
+          slidesPerGroup:1,
+          spaceBetween:0,
+        },
+      },
+    
+
+    // Slide Change
+    on:{
+      slideChangeTransitionStart: function () {
+        $('#mc-Swiper65935 .mc-anim').removeClass('aos-init').removeClass('aos-animate');
+      },
+      slideChangeTransitionEnd: function () {
+        //AOS.init();
+        $('#mc-Swiper65935 .swiper-slide-active .mc-anim').addClass('aos-init').addClass('aos-animate');
+      },
+    }
+  
+  };//swiperOpt
+  
+  
+  // --- Tratamento
+  // Manipular as tags de imagem que saem do typo 3 para unificar a apresentacao
+  $("#mc-Swiper65935 .mc-Swiper-bg-container > .frame img").each(function() {
+    $(this).appendTo($(this).closest('.frame'));
+  });
+  $('#mc-Swiper65935 .mc-Swiper-bg-container .ce-image').remove();
+  
+  
+  
+  
+  
+  // ----------------
+  //
+  // Funncoes
+  //
+  // ----------------
+  
+  // --- update height dos itens internos
+  $.fn.matchHeight._throttle = 200;
+  
+  
+  // -----------
+  // bg slides
+  //
+  // --- Função para check width e matchheigh
+  
+  function checkWidth(){
+  
+    $("#mc-Swiper65935 .mc-Swiper-slide").each(function() {
+   
+      m = $(this).find('.mc-Swiper-bg-main');
+      bg = $(this).find('.mc-Swiper-bg-container');
+  
+      mW = m.outerWidth(true);
+      mH = m.outerHeight(true);
+  
+      bgW = bg.outerWidth(true);
+      bgH = bg.outerHeight(true);
+  
+      bgImg = bg.find('IMG');
+  
+      bgImgW = bgImg.width();
+      bgImgH = bgImg.height();
+  
+      bgIframe = bg.find('IFRAME,VIDEO');
+      bgIframeW = bgIframe.outerWidth(true);
+      bgIframeH = bgIframe.outerHeight(true);
+  
+      vR = bgIframeW / bgIframeH;
+      vHR = mW / vR;
+      vWR = mH * vR;
+  
+      // remodelar iframe
+      bgIframe.removeAttr('width');
+      bgIframe.removeAttr('height');
+  
+      bgIframe.css({'width':mW+'px', 'height':vHR+'px'});
+  
+      if (mH > vHR){
+        bgIframe.css({'width':vWR+'px', 'height':mH+'px'});
+      }
+  
+      // img
+      bg.removeClass("mc-Sresize");
+    
+      if (bgImg.length && mH > bgImgH || bgImg.length && bgImgW >= mW && mH == bgImgH || bgImg.length && mW == bgImgW && mH > bgImgH){
+        bg.addClass("mc-Sresize");
+      } else if (bgImg.length && mW > bgImgW || bgImg.length && mW > bgImgW && mH == bgImgH){ 
+        bg.removeClass("mc-Sresize"); 
+      }
+    });//each
+  }//checkWidth();
+  
+
+  function doneResizing(){
+    
+        $('#mc-Swiper65935 .mc-Swiper-bg-content > div').matchHeight({ remove:true });
+        $('#mc-Swiper65935 .mc-Swiper-bg-content > div').matchHeight({ byRow:false });
+      
+  
+    checkWidth();
+    swiper65935.update();
+  }
+  
+  
+  
+  // ---------
+  // triggers
+  //
+  
+  // --- init swiper
+  var swiper65935 = new Swiper('#mc-Swiper65935 .swiper-container', swiperOpt );
+  
+  
+  // --- Load
+  setTimeout(function(){
+    doneResizing();
+    $('#mc-Swiper65935').css({ 'opacity':+'1' });
+    
+      swiper65935.autoplay.start();
+    
+  }, 200);
+  
+  
+  // --- Resize (Delay)
+  var resizeEnd;
+  $(window).on('resize', function() {
+    clearTimeout(resizeEnd);
+    resizeEnd = setTimeout(doneResizing, 2000);
+  });
+  
+  // --- Scroll
+  var scrollPoint = window.setInterval(scrollAction, 500);
+  
+  function scrollAction(){
+    var scrollTop = $(window).scrollTop();
+    var coisa = $(window).height();
+    var coisa2 = scrollTop + coisa;
+    var targetTop = $("#mc-Swiper65935").offset().top;
+  
+    if (coisa2 > targetTop){
+      setTimeout(doneResizing, 1000);
+      $.fn.matchHeight._update();
+      window.clearInterval(scrollPoint);
+    }
+  }
+  
+  // --- load - video iframe / img
+  $('#mc-Swiper65935 img, #mc-Swiper65935 iframe').on('load',function(){
+    doneResizing();
+  });
+  
+  // --- if tab (bs)
+  $('#mc-Swiper65935').closest('.tab-content').prev('.nav').find('a').on('click',function(){
+    setTimeout(function(){
+      doneResizing();
+    },300);
+  });
+  
+  
+  
+  
+    // restart autoPlay - mouse in out
+    $('#mc-Swiper65935').mouseover(function(){
+      swiper65935.autoplay.stop();
+    }).mouseout(function(){
+      swiper65935.autoplay.start();
+    });
+    
+    // Desempenho - Visibilidade da aba (executar somente com aba visualizada)
+    
+    // Set the name of the hidden property and the change event for visibility
+    var hidden, visibilityChange; 
+    
+    if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support 
+      hidden = "hidden";
+      visibilityChange = "visibilitychange";
+    } else if (typeof document.mozHidden !== "undefined") {
+      hidden = "mozHidden";
+      visibilityChange = "mozvisibilitychange";
+    } else if (typeof document.msHidden !== "undefined") {
+      hidden = "msHidden";
+      visibilityChange = "msvisibilitychange";
+    } else if (typeof document.webkitHidden !== "undefined") {
+      hidden = "webkitHidden";
+      visibilityChange = "webkitvisibilitychange";
+    }
+    
+    // var videoElement = document.getElementById("videoElement");
+    
+    // If the page is hidden, pause the video;
+    // if the page is shown, play the video
+    function handleVisibilityChange() {
+      if (document[hidden]) {
+        doneResizing();
+        swiper65935.autoplay.stop();
+      } else {
+        doneResizing();
+        swiper65935.autoplay.start();
+      }
+    }
+    document.addEventListener("visibilitychange", handleVisibilityChange, false);
+  
+  
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59658
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59658').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59658').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59658').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59672
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59672').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59672').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59672').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59677
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59677').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59677').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59677').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59681
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59681').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59681').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59681').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59685
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59685').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59685').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59685').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59689
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59689').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59689').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59689').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59693
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59693').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59693').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59693').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59697
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59697').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59697').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59697').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59701
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59701').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59701').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59701').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59705
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59705').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59705').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59705').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59709
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59709').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59709').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59709').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59713
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59713').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59713').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59713').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59717
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59717').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59717').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59717').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59721
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59721').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59721').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59721').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59725
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59725').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59725').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59725').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59729
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59729').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59729').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59729').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59733
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59733').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59733').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59733').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59737
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59737').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59737').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59737').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59741
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59741').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59741').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59741').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59745
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59745').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59745').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59745').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59749
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59749').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59749').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59749').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59753
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59753').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59753').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59753').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59757
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59757').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59757').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59757').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59761
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59761').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59761').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59761').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59765
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59765').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59765').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59765').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59769
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59769').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59769').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59769').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #bs-v3-modal59773
+  //
+  
+  (function($){
+    
+
+    // -- Modal - quando abrir
+    $('#modal-c59773').on('shown.bs.modal', function (e) {
+  
+      // -- Acessibilidade se form dentro do modal
+      $(this).find(":input:not(:button):visible:enabled:not([readonly]):first").focus();
+      
+    });
+  
+    // -- se tiver video dentro do modal, pausa ao fechar
+    $('#modal-c59773').on('hide.bs.modal', function(e) {    
+      var $if = $(e.delegateTarget).find('iframe');
+      var src = $if.attr("src");
+      $if.attr("src", '/empty.html');
+      $if.attr("src", src);
+    });
+  
+    // -- se houver id especifico para ativar modal
+    let item = '';
+    if(item.length > 0) {
+  		$(item).css("cursor", "pointer");
+  		$(item).on('click', function(){
+  			$('#modal-c59773').modal('show')
+  		});
+    }
+  
+  })(jQuery);
+
+
+
+  // ===================================== 
+  //
+  // JS - #mc-Swiper28114
+  //  
+  
+  (function($){
+  
+  
+  // ------------
+  // opcoes swiper
+  //
+  var swiperOpt = {
+  
+    // -- controle
+    
+    
+    
+    
+        grabCursor:true,
+        simulateTouch:true,
+      
+    
+    
+  
+    // -- animacao
+    speed:500,
+    
+      autoplay: {
+        delay: 4000,
+      },
+    
+    
+      loop:true,
+    
+      effect:'fade',
+    
+  
+    // -- design
+    
+    
+    
+      spaceBetween:0,
+  
+    
+    
+      slidesPerView:1,
+      slidesPerGroup:1,
+      
+    
+      breakpoints: {
+        480:{
+          slidesPerView:1,
+          slidesPerGroup:1,
+          spaceBetween:0,
+        },
+        768:{
+          slidesPerView:1,
+          slidesPerGroup:1,
+          spaceBetween:0,
+        },
+        992:{
+          slidesPerView:1,
+          slidesPerGroup:1,
+          spaceBetween:0,
+        },
+      },
+    
+
+    // Slide Change
+    on:{
+      slideChangeTransitionStart: function () {
+        $('#mc-Swiper28114 .mc-anim').removeClass('aos-init').removeClass('aos-animate');
+      },
+      slideChangeTransitionEnd: function () {
+        //AOS.init();
+        $('#mc-Swiper28114 .swiper-slide-active .mc-anim').addClass('aos-init').addClass('aos-animate');
+      },
+    }
+  
+  };//swiperOpt
+  
+  
+  // --- Tratamento
+  // Manipular as tags de imagem que saem do typo 3 para unificar a apresentacao
+  $("#mc-Swiper28114 .mc-Swiper-bg-container > .frame img").each(function() {
+    $(this).appendTo($(this).closest('.frame'));
+  });
+  $('#mc-Swiper28114 .mc-Swiper-bg-container .ce-image').remove();
+  
+  
+  
+  
+  
+  // ----------------
+  //
+  // Funncoes
+  //
+  // ----------------
+  
+  // --- update height dos itens internos
+  $.fn.matchHeight._throttle = 200;
+  
+  
+  // -----------
+  // bg slides
+  //
+  // --- Função para check width e matchheigh
+  
+  function checkWidth(){
+  
+    $("#mc-Swiper28114 .mc-Swiper-slide").each(function() {
+   
+      m = $(this).find('.mc-Swiper-bg-main');
+      bg = $(this).find('.mc-Swiper-bg-container');
+  
+      mW = m.outerWidth(true);
+      mH = m.outerHeight(true);
+  
+      bgW = bg.outerWidth(true);
+      bgH = bg.outerHeight(true);
+  
+      bgImg = bg.find('IMG');
+  
+      bgImgW = bgImg.width();
+      bgImgH = bgImg.height();
+  
+      bgIframe = bg.find('IFRAME,VIDEO');
+      bgIframeW = bgIframe.outerWidth(true);
+      bgIframeH = bgIframe.outerHeight(true);
+  
+      vR = bgIframeW / bgIframeH;
+      vHR = mW / vR;
+      vWR = mH * vR;
+  
+      // remodelar iframe
+      bgIframe.removeAttr('width');
+      bgIframe.removeAttr('height');
+  
+      bgIframe.css({'width':mW+'px', 'height':vHR+'px'});
+  
+      if (mH > vHR){
+        bgIframe.css({'width':vWR+'px', 'height':mH+'px'});
+      }
+  
+      // img
+      bg.removeClass("mc-Sresize");
+    
+      if (bgImg.length && mH > bgImgH || bgImg.length && bgImgW >= mW && mH == bgImgH || bgImg.length && mW == bgImgW && mH > bgImgH){
+        bg.addClass("mc-Sresize");
+      } else if (bgImg.length && mW > bgImgW || bgImg.length && mW > bgImgW && mH == bgImgH){ 
+        bg.removeClass("mc-Sresize"); 
+      }
+    });//each
+  }//checkWidth();
+  
+
+  function doneResizing(){
+    
+        $('#mc-Swiper28114 .mc-Swiper-bg-content > div').matchHeight({ remove:true });
+        $('#mc-Swiper28114 .mc-Swiper-bg-content > div').matchHeight({ byRow:false });
+      
+  
+    checkWidth();
+    swiper28114.update();
+  }
+  
+  
+  
+  // ---------
+  // triggers
+  //
+  
+  // --- init swiper
+  var swiper28114 = new Swiper('#mc-Swiper28114 .swiper-container', swiperOpt );
+  
+  
+  // --- Load
+  setTimeout(function(){
+    doneResizing();
+    $('#mc-Swiper28114').css({ 'opacity':+'1' });
+    
+      swiper28114.autoplay.start();
+    
+  }, 200);
+  
+  
+  // --- Resize (Delay)
+  var resizeEnd;
+  $(window).on('resize', function() {
+    clearTimeout(resizeEnd);
+    resizeEnd = setTimeout(doneResizing, 2000);
+  });
+  
+  // --- Scroll
+  var scrollPoint = window.setInterval(scrollAction, 500);
+  
+  function scrollAction(){
+    var scrollTop = $(window).scrollTop();
+    var coisa = $(window).height();
+    var coisa2 = scrollTop + coisa;
+    var targetTop = $("#mc-Swiper28114").offset().top;
+  
+    if (coisa2 > targetTop){
+      setTimeout(doneResizing, 1000);
+      $.fn.matchHeight._update();
+      window.clearInterval(scrollPoint);
+    }
+  }
+  
+  // --- load - video iframe / img
+  $('#mc-Swiper28114 img, #mc-Swiper28114 iframe').on('load',function(){
+    doneResizing();
+  });
+  
+  // --- if tab (bs)
+  $('#mc-Swiper28114').closest('.tab-content').prev('.nav').find('a').on('click',function(){
+    setTimeout(function(){
+      doneResizing();
+    },300);
+  });
+  
+  
+  
+  
+    // restart autoPlay - mouse in out
+    $('#mc-Swiper28114').mouseover(function(){
+      swiper28114.autoplay.stop();
+    }).mouseout(function(){
+      swiper28114.autoplay.start();
+    });
+    
+    // Desempenho - Visibilidade da aba (executar somente com aba visualizada)
+    
+    // Set the name of the hidden property and the change event for visibility
+    var hidden, visibilityChange; 
+    
+    if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support 
+      hidden = "hidden";
+      visibilityChange = "visibilitychange";
+    } else if (typeof document.mozHidden !== "undefined") {
+      hidden = "mozHidden";
+      visibilityChange = "mozvisibilitychange";
+    } else if (typeof document.msHidden !== "undefined") {
+      hidden = "msHidden";
+      visibilityChange = "msvisibilitychange";
+    } else if (typeof document.webkitHidden !== "undefined") {
+      hidden = "webkitHidden";
+      visibilityChange = "webkitvisibilitychange";
+    }
+    
+    // var videoElement = document.getElementById("videoElement");
+    
+    // If the page is hidden, pause the video;
+    // if the page is shown, play the video
+    function handleVisibilityChange() {
+      if (document[hidden]) {
+        doneResizing();
+        swiper28114.autoplay.stop();
+      } else {
+        doneResizing();
+        swiper28114.autoplay.start();
+      }
+    }
+    document.addEventListener("visibilitychange", handleVisibilityChange, false);
+  
+  
+  
+  })(jQuery);
+
+
