@@ -86,7 +86,7 @@ nav li{
 }
 #banner{
     height: 400px;
-    background-image: url("../imagens/imagen-fundo.png");
+    background-image: url("../imagens/imagem-fundo.png");
     background-repeat: no-repeat;
     background-size: contain;
 }
