@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+*{
+    margin: 0px;
+    padding: 0px;
+    line-height: 1.5em;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+header{
+    background-color: white;
+    color: white;
+}
+header div{
+    display: flex;
+}
+#contatos a:hover, #div-login a:hover, nav a:hover{
+    color: rgb(253, 200, 0);
+    transition: 0.8s;
+}
+#div-header1{
+    display: flex;
+    background-image: linear-gradient(to left, rgb(0,33,71),rgb(9,150,197));
+    justify-content: space-between;
+    padding: 5px;
+    align-items: center;
+}
+div#contatos{
+    align-items: center;
+    height: 30px;  
+    font-size: 0.8em;
+}
+#contatos img{
+    width: 20px;
+    height: 15px;
+}
+#contatos a{
+    margin: 0px 10px;
+    flex: 1 1 100vw;
+    color: rgba(255, 255, 255, 0.66);
+}
+div#contatos img{
+    width: 25px;
+}
+#div-login a{
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.66);
+}
+div#div-nav-container{
+    background-color: rgba(255, 255, 255, 0.721);
+    align-items: center;
+    position: relative;
+}
+.header-div{
+    margin: 15px;
+    top: 0px;
+    background-attachment: fixed;
+}
+
+div#logo img{
+    width: 70px;
+    height: 70px;
+}
+header ul{
+    display: flex;
+    list-style-type: none;
+}
+div#div-nav{
+    flex: 1 3 100%;
+}
+nav{
+    width: 80vw;
+}
+#div-nav-container nav ul li{
+    flex-grow: 1;
+}
+ul #unidades-organicas{
+    flex-grow: 2;
+}
+ nav  a{
+    color: black;
+}
+main{
+    max-width: 1280px;
+    
+}
+section{
+    margin: 50px 0px;
+    padding: 40px;
+    
+}
+#banner{
+    display: flex;
+    position: relative;
+    background-image: url(../imagens/uan.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-weight: bold;
+    justify-content: center;
+    margin: 0px ;
+
+}
+#banner::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.454);
+    font-weight: bolder;
+
+}
+
+@media screen and (max-width:600px) {
+    #div-container{
+        flex-wrap: wrap;
+    }
+    .banner-div{
+        flex: 1 1 100%;
+        margin: 3px 0px;
+    }
+    
+}
+#div-container{
+    display: flex;
+    margin: auto;
+    margin-top: 30%;
+}
+.banner-div{
+    background-color: rgba(24, 51, 82, 0.893);
+    color: white;
+    padding: 20px 30px;
+    border-left: 0.5px solid white;
+
+}
+.banner-div p{
+    color: white;
+}
+#banner>div h2{
+    font-size: 1em;
+    background-image: linear-gradient(to left, rgb(4,40,79), rgb(9,149,186));
+    padding: 5px 0px;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+#section2 h1{
+    color: rgb(0, 33, 71);
+    margin: 15px;
+    font-size: 2.5em;
+    text-align: center;
+}
+#msg-reitor{
+    margin: auto;
+    margin: 50px 0px;
+    color: white;
+    text-align: center;
+}
+#msg-reitor a{
+    
+    background-image: linear-gradient(to right,rgb(0, 33, 71),rgb(86, 16, 16)) ;
+    color: white;
+    padding: 20px 30px;
+    border:2px solid red;
+}
+p,h2{
+    margin: 10px;
+}
+p{
+    color: rgb(68, 68, 68);
+    font-size: 1.12em;
+}
+
+#section3{
+    background-color: rgb(6, 43, 80);
+    color: white;
+    padding: 50px 0px;
+    text-align: center;
+}
+#section3 h1{
+    text-align: center;
+}
+
+#section3 p{
+    color: white;
+}
+#div-cont-sec4{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    margin: 50px 0px;
+}
+
+#section4 .div-f-section4{
+    flex: 1 1 100%;
+    background-color: rgb(6, 43, 80);
+    max-width: 20%;
+    height: 300px;
+    margin: 2px;
+}
+#section4 h2{
+    font-size: 1em;
+}
+#section4 #div-fac-dt{
+    flex-grow: 2;
+    background-image: url(../imagens/direito-removebg-preview.png);
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+
+}
+#section4 #div-fac-ec{
+    background-image: url(../imagens/economia.png);
+    background-size: contain;
+    background-repeat:no-repeat;
+}
