@@ -9,19 +9,27 @@
 <body id="login">
     <img src="imagens/logo-responsivo.png" alt="logo-responsivo" id="logo">
     <div id="div-conteiner">
-        <form action="#">
+        <form action="js/validarDados.js" method="post" autocomplete="on" name="fLogin" >
             <h1>PORTAL DO ALUNO</h1>
             <div class="div-login">
                 <img src="imagens/user.png" alt="Ícone-usuário" class="img">
-                <input type="text" name="nome_usuario"class="input-login">
+                <input type="text" name="nome" id="nome_usuario" class="input-login" required autocomplete="name" minlength="8" oninput="validacaoDados()">
             </div>
+            <p id="erro-nome"></p>
             <div class="div-login">
                 <img src="imagens/senha.png" alt="Ícone-senha" class="img">
-                <input type="password" name="senha" class="input-login">
+                <input type="password" name="senha" id="senha-usuario" class="input-login" required minlength="8" autocomplete="current-password" oninput="validacaoDados()">
             </div>
-            <div id="div-button" class="div-login"><button id="button-acessar">ACESSAR</button></div>
-            <p><a href="">Esqueceu sua senha?</a></p>
+            <p id="erro-senha"></p>
+            <div id="div-button" class="div-login">
+
+                <input type="submit" value="ACESSAR" id="button-acessar" onclick="enviarDados()">
+                </div>
+            <p id="esqueceu-senha">
+                <a href="">Esqueceu sua senha?</a>
+            </p>
         </form>
     </div>
+    <script src="js/validarDados.js"></script>
 </body>
 </html>

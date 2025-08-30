@@ -7,6 +7,7 @@
 }
 body{
     font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
 }
 header{
     background-color: white;
@@ -91,15 +92,16 @@ section{
     
 }
 #banner{
+    width: 100%;
     display: flex;
     position: relative;
     background-image: url(../imagens/uan.jpg);
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     font-weight: bold;
     justify-content: center;
     margin: 0px ;
-
+    padding: 0px;
 }
 #banner::before{
     content: '';
@@ -125,9 +127,11 @@ section{
     
 }
 #div-container{
+    width: 90vw;
     display: flex;
     margin: auto;
-    margin-top: 30%;
+    margin-top: 25%;
+    margin-bottom: -30px;
 }
 .banner-div{
     background-color: rgba(24, 51, 82, 0.893);
@@ -138,6 +142,8 @@ section{
 }
 .banner-div p{
     color: white;
+    font-size: 1em;
+    font-weight: normal;
 }
 #banner>div h2{
     font-size: 1em;
