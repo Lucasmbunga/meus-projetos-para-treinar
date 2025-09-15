@@ -1,0 +1,246 @@
+@charset "UTF-8";
+
+:root{
+   --cor_principal:rgb(204,8,27);
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    line-height: 1.5em;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+}
+header p, header ul{
+    display: flex;
+    
+}
+header p{
+    background-color: white;
+    color: var(--cor_principal);
+    justify-content: space-between;
+    padding: 5px;
+}
+header>div{
+    display: flex;
+    background-color: var(--cor_principal);
+    color: white;
+    padding: 10px 0px;
+    padding-left: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+header div img{
+    flex: none;
+
+}
+nav{
+    flex: 1 1 50%;
+}
+div#contactos{
+    display: flex;
+    flex: 1 1 5%;
+    justify-content: space-between;
+    padding: 0px;
+}
+div#contactos a img{
+    flex: auto;
+    width: 30px;
+    font-weight: 700;
+}
+header ul{
+    list-style-type: none;
+    justify-content: space-around;
+    font-weight: bold;
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+section{
+    text-align: center;
+}
+.banner{
+    height: 409px;
+    background-image: url(../imagens/mackstore-banner-one-fotor.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.aar{
+    display: flex;
+    gap: 5px;
+    margin: 15px 5px;
+}
+.aar div{
+    width: 410px;
+    height: 589px;
+    position: relative;
+    text-align: center;
+}
+.aar div a{
+    width: 98%;
+    transition: 0.5s ease-in-out;
+}
+
+.aar img{
+    width: inherit;
+    
+}
+.aar div:hover a{
+    width: 100%;
+    height: 604px;
+    transition: 0.5s ease-in-out;
+    transition-delay: 0.1s;
+}
+.aar div h1{
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.aar div .ver-mais{
+    width: auto;
+    color: white;
+    padding: 5px;
+    position: absolute;
+    top: 56%;
+    left: 50%;
+    border: 2px solid white;
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+}
+.aar div a.ver-mais{
+    width: auto;
+    height: auto;
+}
+.section-produtos{
+    height: 560px;
+    margin: 20px;
+}
+#roupas{
+    height: 500px;
+}
+.section-produtos h1{
+    color: var(--cor_principal);
+    margin: 40px;
+}
+#container-roupas, #container-acessorios{
+    display: flex;
+    flex-wrap: nowrap;
+}
+#container-roupas .roupas, #container-acessorios .acessorios{
+    justify-items: center;
+}
+.roupas p{
+    text-align: center;
+}
+.verso{
+    display: none;
+}
+.roupas:hover .verso, .acessorios:hover .verso, .roupas:hover .botao-comprar, .acessorios:hover .botao-comprar{
+    display: block;
+}
+.roupas:hover .frente, .acessorios:hover .frente{
+    display: none;
+}
+.roupas:hover,.acessorios:hover{
+    border: 1.5px solid rgba(212, 209, 209, 0.557);
+    border-radius: 5px 5px 20px 20px;
+}
+
+.acessorios p{
+    margin-bottom: 32px;
+}
+p.botao-comprar{
+    width: 97%;
+    background-color: rgba(2, 183, 83, 0.941);
+    color: white;
+    font-weight: bold;
+    display: none;
+    border-radius: 20px;
+    padding: 8px;
+    margin-top: 25px;
+    margin-bottom: 2px;
+    box-shadow: 0px 1.5px 0px rgb(5, 87, 12);
+    cursor: pointer;
+}
+.roupas strong, .acessorios strong{
+    color: rgb(204, 8, 27);
+    font-size: 1.2em;
+}
+#nova-colecao img{
+    width: 100%;
+    height: 270px;
+    margin-bottom: 150px;
+    
+}
+#footer-container1{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    background-color: var(--cor_principal);
+}
+#footer-container1 div{
+    flex: auto;
+    margin: 15px;
+    border-right: 1.3px solid rgba(116, 115, 115, 0.375);
+    width: auto;
+    color: white;
+}
+#footer-container1 div img{
+    width: 16px;
+}
+footer ul{
+    list-style-type: none;
+}
+#footer-redes-sociais{
+    background-color: var(--cor_principal);
+    text-align: center;
+    border-top: 1.5px solid rgba(86, 85, 85, 0.372);
+    padding: 10px;
+}
+#footer-redes-sociais img{
+    width: 40px;
+}
+#footer-container2{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+    font-size: 0.8em;
+    color: gray;
+}
+#footer-container2 div{
+    flex: 1 1 25%;
+    align-items: center;
+}
+#footer-container2 div p{
+    border-bottom: 1.3px solid rgba(128, 128, 128, 0.372);
+    padding: 5px;
+    font-weight: 700;
+}
+#footer-container2 img{
+    margin-top: 8px;
+}
+#ultimo-div{
+    color: gray;
+    text-align: center;
+    font-size: 0.8em;
+    padding: 10px;
+}
+
+p#endereco{
+    flex: 1 1 100%;
+}
+#footer-container2>p{
+    padding: 10px;
+    border-bottom: 1.3px solid rgba(128, 128, 128, 0.372);
+}
+
+
+
+
