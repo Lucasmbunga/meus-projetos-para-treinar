@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body id="login">
@@ -12,12 +14,17 @@
         <form action="js/validarDados.js" method="post" autocomplete="on" name="fLogin" >
             <h1>PORTAL DO ALUNO</h1>
             <div class="div-login">
-                <img src="imagens/user.png" alt="Ícone-usuário" class="img">
+                <label for="nome_usuario" class="img">
+                    <i class="material-icons">person</i>
+
+                </label>
                 <input type="text" name="nome" id="nome_usuario" class="input-login" required autocomplete="name" minlength="8" oninput="validacaoDados()">
             </div>
             <p id="erro-nome"></p>
             <div class="div-login">
-                <img src="imagens/senha.png" alt="Ícone-senha" class="img">
+                <label for="senha-usuario" class="img">
+                    <i class="material-icons">lock</i>
+                </label>
                 <input type="password" name="senha" id="senha-usuario" class="input-login" required minlength="8" autocomplete="current-password" oninput="validacaoDados()">
             </div>
             <p id="erro-senha"></p>

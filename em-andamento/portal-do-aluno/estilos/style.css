@@ -168,8 +168,11 @@ body#login{
 #div-conteiner h1{
     font-size: 1.5em;
 }
-.div-login{
-    padding: 10px 0px;
+div.div-login{
+    display: flex;
+    align-items: center;
+    height: 55px;
+    padding: 0px;
     background-color: white;
     color:  rgb(104, 95, 97);
     margin: 15px 0px;
@@ -179,14 +182,17 @@ body#login{
     padding: 0px;
 }
 .img{
-    width: 20px;
-    height: 100%;
+    flex: 0 0 50px;
     background-color: rgb(104, 95, 97);
-    margin-bottom: -5px;
+    color: white;
+    border-radius: 5px 0px 0px 5px;
+    font-size: 40px;
 }
-.input-login{
+input.input-login{
+    flex:0 0 80%;
     border-style: none;
     padding: 10px 0px;
+    margin-left: 5px;
 }
 #button-acessar{
     background-color: rgb(234, 0, 1);
